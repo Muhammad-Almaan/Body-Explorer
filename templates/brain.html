@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}The Incredible Brain - Body Explorer{% endblock %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+{% block content %}
+<div class="brain-page">
+    <a href="{{ url_for('index') }}" class="back-button">← Back to Home</a>
+
+    <div class="brain-header">
+        <div class="brain-emoji">🧠</div>
+        <h1>The Incredible Brain</h1>
+        <p>Explore the most complex organ in your body - click on different regions!</p>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- Brain Diagram Section -->
+        <div class="section-card">
+            <div class="brain-diagram-container">
+                <div class="svg-container">
+                    <svg class="brain-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Frontal Lobe -->
+                        <path class="brain-part" id="frontal"
+                              d="M60,80 Q50,60 60,40 Q80,30 100,35 L100,80 Z"
+                              fill="#a78bfa" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+
+                        <!-- Parietal Lobe -->
+                        <path class="brain-part" id="parietal"
+                              d="M100,35 Q120,30 140,40 Q150,60 140,80 L100,80 Z"
+                              fill="#c4b5fd" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+
+                        <!-- Temporal Lobe -->
+                        <path class="brain-part" id="temporal"
+                              d="M60,80 L100,80 L90,120 Q75,125 60,120 Z"
+                              fill="#818cf8" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+
+                        <!-- Occipital Lobe -->
+                        <path class="brain-part" id="occipital"
+                              d="M100,80 L140,80 Q145,100 140,120 L110,120 Z"
+                              fill="#a5b4fc" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+
+                        <!-- Cerebellum -->
+                        <path class="brain-part" id="cerebellum"
+                              d="M90,120 L110,120 L115,145 Q100,150 85,145 Z"
+                              fill="#93c5fd" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+
+                        <!-- Brain Stem -->
+                        <path class="brain-part" id="brainstem"
+                              d="M85,145 L115,145 L110,170 L90,170 Z"
+                              fill="#60a5fa" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                    </svg>
+                </div>
+
+                <div class="info-card" id="brain-info">
+                    <h2>Welcome! 🧠</h2>
+                    <p>Your brain is the most complex organ in your body, containing 86 billion neurons that control everything you do, think, and feel!</p>
+                    <h3>Fun Facts:</h3>
+                    <div class="fact-item">
+                        <span class="bullet">•</span>
+                        <span>Contains 86 billion neurons</span>
+                    </div>
+                    <div class="fact-item">
+                        <span class="bullet">•</span>
+                        <span>Uses 20% of your body's energy</span>
+                    </div>
+                    <div class="fact-item">
+                        <span class="bullet">•</span>
+                        <span>Processes information at 268 mph</span>
+                    </div>
+                    <div class="fact-item">
+                        <span class="bullet">•</span>
+                        <span>Generates 25 watts of power</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Memory Game -->
+        <div class="section-card">
+            <h2 class="section-title">🎮 Brain Memory Game</h2>
+            <p class="section-description">
+                Test your memory! Find all matching pairs.
+            </p>
+
+            <div class="game-stats">
+                <div>Moves: <span id="moves-count">0</span></div>
+                <div>Pairs: <span id="pairs-count">0</span>/8</div>
+            </div>
+
+            <div class="memory-grid" id="memory-grid"></div>
+
+            <div id="game-result" style="display: none;">
+                <div class="results-card">
+                    <div class="trophy-icon">🏆</div>
+                    <h3 id="win-message"></h3>
+                    <button id="play-again-btn" class="game-button">
+                        🔄 Play Again
+                    </button>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button id="restart-memory-btn" class="game-button secondary">
+                    🔄 Restart Game
+                </button>
+            </div>
+        </div>
+
+        <!-- Brain Quiz -->
+        <div class="section-card">
+            <h2 class="section-title">🧠 Brain Knowledge Quiz</h2>
+
+            <div id="quiz-container">
+                <div class="quiz-question">
+                    <h3>1. How many neurons does the brain contain?</h3>
+                    <div class="quiz-option" data-question="0" data-correct="false">1 billion</div>
+                    <div class="quiz-option" data-question="0" data-correct="false">10 billion</div>
+                    <div class="quiz-option" data-question="0" data-correct="true">86 billion</div>
+                    <div class="quiz-option" data-question="0" data-correct="false">200 billion</div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>2. Which part of the brain controls balance and coordination?</h3>
+                    <div class="quiz-option" data-question="1" data-correct="false">Frontal lobe</div>
+                    <div class="quiz-option" data-question="1" data-correct="true">Cerebellum</div>
+                    <div class="quiz-option" data-question="1" data-correct="false">Occipital lobe</div>
+                    <div class="quiz-option" data-question="1" data-correct="false">Brain stem</div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>3. What percentage of your body's energy does the brain use?</h3>
+                    <div class="quiz-option" data-question="2" data-correct="false">5%</div>
+                    <div class="quiz-option" data-question="2" data-correct="false">10%</div>
+                    <div class="quiz-option" data-question="2" data-correct="true">20%</div>
+                    <div class="quiz-option" data-question="2" data-correct="false">30%</div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>4. Which lobe is responsible for vision?</h3>
+                    <div class="quiz-option" data-question="3" data-correct="false">Frontal lobe</div>
+                    <div class="quiz-option" data-question="3" data-correct="false">Temporal lobe</div>
+                    <div class="quiz-option" data-question="3" data-correct="false">Parietal lobe</div>
+                    <div class="quiz-option" data-question="3" data-correct="true">Occipital lobe</div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>5. What does the frontal lobe help control?</h3>
+                    <div class="quiz-option" data-question="4" data-correct="false">Vision</div>
+                    <div class="quiz-option" data-question="4" data-correct="false">Hearing</div>
+                    <div class="quiz-option" data-question="4" data-correct="true">Decision-making and personality</div>
+                    <div class="quiz-option" data-question="4" data-correct="false">Balance</div>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button id="submit-quiz-brain" class="game-button">Submit Quiz</button>
+            </div>
+
+            <div id="quiz-results-brain" style="display: none;">
+                <div class="results-card">
+                    <div class="trophy-icon">🏆</div>
+                    <h3 id="score-text-brain"></h3>
+                    <p id="score-message-brain"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h3>Muhammad Almaan Shabbir</h3>
+            <p>8-B1 • Science Explorer & Developer</p>
+        </footer>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

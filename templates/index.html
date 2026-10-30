@@ -1,0 +1,429 @@
+{% extends "base.html" %}
+
+{% block title %}Body Explorer - Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    .home-bg {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .bg-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.2;
+        animation: float 20s infinite;
+    }
+
+    .blob-1 {
+        width: 400px;
+        height: 400px;
+        background: white;
+        top: 10%;
+        left: 10%;
+    }
+
+    .blob-2 {
+        width: 400px;
+        height: 400px;
+        background: #ffd93d;
+        bottom: 10%;
+        right: 10%;
+        animation-delay: -10s;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translate(0, 0) scale(1);
+        }
+        33% {
+            transform: translate(30px, -50px) scale(1.1);
+        }
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
+        }
+    }
+
+    nav {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 20px 0;
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .logo-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 16px;
+    }
+
+    .nav-link {
+        padding: 10px 20px;
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.2);
+        text-decoration: none;
+        color: white;
+        transition: all 0.3s;
+    }
+
+    .nav-link:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .hero {
+        text-align: center;
+        padding: 100px 24px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .hero-emoji {
+        font-size: 120px;
+        margin-bottom: 24px;
+        display: inline-block;
+        animation: rotate 6s infinite;
+    }
+
+    @keyframes rotate {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(5deg); }
+        75% { transform: rotate(-5deg); }
+    }
+
+    .hero h1 {
+        font-size: 72px;
+        font-weight: 900;
+        margin-bottom: 24px;
+        line-height: 1.2;
+    }
+
+    .gradient-text {
+        background: linear-gradient(90deg, #fff, #ffd93d, #fff);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: shimmer 3s linear infinite;
+    }
+
+    @keyframes shimmer {
+        to {
+            background-position: 200% center;
+        }
+    }
+
+    .hero p {
+        font-size: 24px;
+        max-width: 800px;
+        margin: 0 auto 48px;
+        opacity: 0.9;
+        line-height: 1.6;
+    }
+
+    .features {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 48px;
+    }
+
+    .feature-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .cta-btn {
+        background: linear-gradient(135deg, #fff, #ffc0cb);
+        color: #667eea;
+        font-size: 20px;
+        padding: 20px 48px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .organs-section {
+        padding: 80px 24px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .organs-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+        gap: 32px;
+    }
+
+    .organ-card {
+        position: relative;
+        text-decoration: none;
+        color: white;
+        display: block;
+        transition: transform 0.3s;
+    }
+
+    .organ-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .organ-card-glow {
+        position: absolute;
+        inset: 0;
+        border-radius: 24px;
+        filter: blur(20px);
+        opacity: 0.5;
+        transition: all 0.3s;
+    }
+
+    .organ-card:hover .organ-card-glow {
+        filter: blur(30px);
+    }
+
+    .heart-glow {
+        background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    }
+
+    .brain-glow {
+        background: linear-gradient(135deg, #a78bfa, #818cf8);
+    }
+
+    .organ-card-content {
+        position: relative;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        padding: 40px;
+    }
+
+    .organ-emoji {
+        font-size: 100px;
+        margin-bottom: 24px;
+        display: inline-block;
+    }
+
+    .heart-emoji {
+        animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    .brain-emoji {
+        animation: rotate 3s infinite;
+    }
+
+    .organ-card h2 {
+        font-size: 36px;
+        margin-bottom: 16px;
+    }
+
+    .organ-card p {
+        font-size: 18px;
+        opacity: 0.8;
+        margin-bottom: 24px;
+        line-height: 1.6;
+    }
+
+    .organ-tags {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tags {
+        display: flex;
+        gap: 12px;
+    }
+
+    .tag {
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+    }
+
+    .heart-tag {
+        background: rgba(255, 107, 107, 0.3);
+    }
+
+    .brain-tag {
+        background: rgba(139, 92, 246, 0.3);
+    }
+
+    .arrow {
+        transition: transform 0.3s;
+    }
+
+    .organ-card:hover .arrow {
+        transform: translateX(8px);
+    }
+
+    footer {
+        text-align: center;
+        padding: 48px 24px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 80px;
+    }
+
+    footer h3 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    footer p {
+        opacity: 0.8;
+        font-size: 18px;
+    }
+
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 48px;
+        }
+        .organs-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="home-bg">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">✨</div>
+                <span>Body Explorer</span>
+            </div>
+            <div class="nav-links">
+                <a href="/heart" class="nav-link">Heart</a>
+                <a href="/brain" class="nav-link">Brain</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-emoji">🧬</div>
+        <h1>
+            <span class="gradient-text">Explore Your</span><br>
+            Amazing Body
+        </h1>
+        <p>
+            Discover the wonders of the human heart and brain through interactive learning,
+            fun games, and exciting quizzes!
+        </p>
+
+        <div class="features">
+            <div class="feature-badge fade-in">
+                <span>🎯</span>
+                <span>Interactive Learning</span>
+            </div>
+            <div class="feature-badge fade-in" style="animation-delay: 0.1s;">
+                <span>🏆</span>
+                <span>Fun Quizzes</span>
+            </div>
+            <div class="feature-badge fade-in" style="animation-delay: 0.2s;">
+                <span>✨</span>
+                <span>Engaging Games</span>
+            </div>
+        </div>
+
+        <button class="btn cta-btn" onclick="document.querySelector('.organs-section').scrollIntoView({behavior: 'smooth'})">
+            Start Exploring
+            <span>→</span>
+        </button>
+    </section>
+
+    <section class="organs-section">
+        <div class="organs-grid">
+            <a href="/heart" class="organ-card">
+                <div class="organ-card-glow heart-glow"></div>
+                <div class="organ-card-content">
+                    <div class="organ-emoji heart-emoji">❤️</div>
+                    <h2>The Heart</h2>
+                    <p>
+                        Your heart beats 100,000 times a day, pumping blood throughout your entire body!
+                        Discover how this amazing pump works.
+                    </p>
+                    <div class="organ-tags">
+                        <div class="tags">
+                            <span class="tag heart-tag">Interactive</span>
+                            <span class="tag heart-tag">Quiz</span>
+                        </div>
+                        <span class="arrow">→</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/brain" class="organ-card">
+                <div class="organ-card-glow brain-glow"></div>
+                <div class="organ-card-content">
+                    <div class="organ-emoji brain-emoji">🧠</div>
+                    <h2>The Brain</h2>
+                    <p>
+                        With 86 billion neurons, your brain is the control center processing everything
+                        you see, think, and feel!
+                    </p>
+                    <div class="organ-tags">
+                        <div class="tags">
+                            <span class="tag brain-tag">Memory Game</span>
+                            <span class="tag brain-tag">Quiz</span>
+                        </div>
+                        <span class="arrow">→</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <h3>Muhammad Almaan Shabbir</h3>
+        <p>8-B1 • Science Explorer & Developer</p>
+    </footer>
+</div>
+{% endblock %}

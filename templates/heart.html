@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}The Amazing Heart{% endblock %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+{% block content %}
+<div class="heart-page">
+    <a href="{{ url_for('index') }}" class="back-button">← Back to Home</a>
+
+    <div class="heart-header">
+        <div class="heart-emoji">❤️</div>
+        <h1>The Amazing Heart</h1>
+        <p>Click on different parts of the heart to learn how it works!</p>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- Heart Diagram Section -->
+        <div class="section-card">
+            <div class="heart-diagram-container">
+                <div>
+                    <svg class="heart-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Right Atrium -->
+                        <path class="heart-part" id="right-atrium"
+                              d="M100,50 L120,40 L140,50 L140,80 L120,90 L100,80 Z"
+                              fill="#ff6b7a" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+
+                        <!-- Right Ventricle -->
+                        <path class="heart-part" id="right-ventricle"
+                              d="M100,80 L120,90 L140,80 L130,120 L110,130 L90,120 Z"
+                              fill="#ff8fa3" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+
+                        <!-- Left Atrium -->
+                        <path class="heart-part" id="left-atrium"
+                              d="M60,50 L80,40 L100,50 L100,80 L80,90 L60,80 Z"
+                              fill="#e84118" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+
+                        <!-- Left Ventricle -->
+                        <path class="heart-part" id="left-ventricle"
+                              d="M60,80 L80,90 L100,80 L110,120 L90,130 L70,120 Z"
+                              fill="#d63031" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+
+                        <!-- Aorta -->
+                        <path class="heart-part" id="aorta"
+                              d="M70,40 L80,30 L90,30 L100,40 L90,50 L80,50 Z"
+                              fill="#fab1a0" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                    </svg>
+                </div>
+
+                <div class="info-card" id="heart-info">
+                    <h2>Welcome! 💓</h2>
+                    <p>Your heart is an amazing muscle that never stops working. It pumps blood throughout your entire body, delivering oxygen and nutrients to every cell!</p>
+                    <h3>Fun Facts:</h3>
+                    <div class="fact-item">
+                        <span class="bullet">•</span>
+                        <span>Beats 100,000 times per day</span>
+                    </div>
+                    <div class="fact-item">
+                        <span class="bullet">•</span>
+                        <span>Pumps 2,000 gallons of blood daily</span>
+                    </div>
+                    <div class="fact-item">
+                        <span class="bullet">•</span>
+                        <span>About the size of your fist</span>
+                    </div>
+                    <div class="fact-item">
+                        <span class="bullet">•</span>
+                        <span>Has 4 chambers that work together</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blood Flow Game -->
+        <div class="section-card">
+            <h2 class="section-title">🩸 Blood Flow Challenge</h2>
+            <p class="section-description">
+                Click the steps in the correct order to show how blood flows through the heart!
+            </p>
+
+            <div class="flow-steps-container">
+                <div class="flow-step pending" data-order="1">Body → Right Atrium</div>
+                <div class="flow-step pending" data-order="2">Right Atrium → Right Ventricle</div>
+                <div class="flow-step pending" data-order="3">Right Ventricle → Lungs</div>
+                <div class="flow-step pending" data-order="4">Lungs → Left Atrium</div>
+                <div class="flow-step pending" data-order="5">Left Atrium → Left Ventricle</div>
+                <div class="flow-step pending" data-order="6">Left Ventricle → Body</div>
+            </div>
+
+            <div id="flow-message"></div>
+
+            <div class="button-container">
+                <button id="reset-flow" class="game-button" style="display: none;">
+                    🔄 Play Again
+                </button>
+            </div>
+        </div>
+
+        <!-- Heart Quiz -->
+        <div class="section-card">
+            <h2 class="section-title">❤️ Heart Knowledge Quiz</h2>
+
+            <div id="quiz-container">
+                <div class="quiz-question">
+                    <h3>1. How many chambers does the heart have?</h3>
+                    <div class="quiz-option" data-question="0" data-correct="false">2 chambers</div>
+                    <div class="quiz-option" data-question="0" data-correct="false">3 chambers</div>
+                    <div class="quiz-option" data-question="0" data-correct="true">4 chambers</div>
+                    <div class="quiz-option" data-question="0" data-correct="false">5 chambers</div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>2. What does the heart pump throughout your body?</h3>
+                    <div class="quiz-option" data-question="1" data-correct="false">Air</div>
+                    <div class="quiz-option" data-question="1" data-correct="true">Blood</div>
+                    <div class="quiz-option" data-question="1" data-correct="false">Water</div>
+                    <div class="quiz-option" data-question="1" data-correct="false">Food</div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>3. About how many times does your heart beat per day?</h3>
+                    <div class="quiz-option" data-question="2" data-correct="false">10,000 times</div>
+                    <div class="quiz-option" data-question="2" data-correct="false">50,000 times</div>
+                    <div class="quiz-option" data-question="2" data-correct="true">100,000 times</div>
+                    <div class="quiz-option" data-question="2" data-correct="false">200,000 times</div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>4. Where does blood go after leaving the right ventricle?</h3>
+                    <div class="quiz-option" data-question="3" data-correct="false">Brain</div>
+                    <div class="quiz-option" data-question="3" data-correct="true">Lungs</div>
+                    <div class="quiz-option" data-question="3" data-correct="false">Stomach</div>
+                    <div class="quiz-option" data-question="3" data-correct="false">Feet</div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>5. What is the largest blood vessel leaving the heart?</h3>
+                    <div class="quiz-option" data-question="4" data-correct="true">Aorta</div>
+                    <div class="quiz-option" data-question="4" data-correct="false">Vena Cava</div>
+                    <div class="quiz-option" data-question="4" data-correct="false">Pulmonary Artery</div>
+                    <div class="quiz-option" data-question="4" data-correct="false">Carotid Artery</div>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button id="submit-quiz" class="game-button">Submit Quiz</button>
+            </div>
+
+            <div id="quiz-results" style="display: none;">
+                <div class="results-card">
+                    <div class="trophy-icon">🏆</div>
+                    <h3 id="score-text"></h3>
+                    <p id="score-message"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h3>Muhammad Almaan Shabbir</h3>
+            <p>8-B1 • Science Explorer & Developer</p>
+        </footer>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
