@@ -19,31 +19,119 @@
         <div class="section-card">
             <div class="heart-diagram-container">
                 <div>
-                    <svg class="heart-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Right Atrium -->
-                        <path class="heart-part" id="right-atrium"
-                              d="M100,50 L120,40 L140,50 L140,80 L120,90 L100,80 Z"
-                              fill="#ff6b7a" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                    <svg class="heart-svg" viewBox="0 0 420 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Interactive diagram of the human heart. Click a chamber or the aorta to learn about it.">
+                        <defs>
+                            <linearGradient id="gRA" x1="0.1" y1="0" x2="0.9" y2="1">
+                                <stop offset="0" stop-color="#e0647c"/>
+                                <stop offset="1" stop-color="#a22c4a"/>
+                            </linearGradient>
+                            <linearGradient id="gRV" x1="0.1" y1="0" x2="0.8" y2="1">
+                                <stop offset="0" stop-color="#c84565"/>
+                                <stop offset="1" stop-color="#76193a"/>
+                            </linearGradient>
+                            <linearGradient id="gLA" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#ff7d6e"/>
+                                <stop offset="1" stop-color="#d1403f"/>
+                            </linearGradient>
+                            <linearGradient id="gLV" x1="0.1" y1="0" x2="0.9" y2="1">
+                                <stop offset="0" stop-color="#e5424a"/>
+                                <stop offset="1" stop-color="#8a1420"/>
+                            </linearGradient>
+                            <linearGradient id="gAorta" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#ff9484"/>
+                                <stop offset="1" stop-color="#d9454a"/>
+                            </linearGradient>
+                            <linearGradient id="gVein" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#7d8cf0"/>
+                                <stop offset="1" stop-color="#4553bd"/>
+                            </linearGradient>
+                            <radialGradient id="gShine" cx="0.35" cy="0.25" r="0.7">
+                                <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+                                <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+                            </radialGradient>
+                            <filter id="heartShadow" x="-20%" y="-20%" width="140%" height="150%">
+                                <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#000000" flood-opacity="0.35"/>
+                            </filter>
+                            <filter id="labelShadow" x="-20%" y="-20%" width="140%" height="160%">
+                                <feDropShadow dx="0" dy="1" stdDeviation="1.3" flood-color="#000000" flood-opacity="0.7"/>
+                            </filter>
+                        </defs>
 
-                        <!-- Right Ventricle -->
-                        <path class="heart-part" id="right-ventricle"
-                              d="M100,80 L120,90 L140,80 L130,120 L110,130 L90,120 Z"
-                              fill="#ff8fa3" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                        <g class="heart-beat" filter="url(#heartShadow)">
+                            <!-- Aorta (arch, behind the heart) -->
+                            <path class="heart-part" id="aorta"
+                                  d="M210,262 C206,190 206,118 252,100 C296,86 332,116 332,166 L332,222 L302,222 L302,172 C302,146 284,132 266,140 C250,147 244,175 244,262 Z"
+                                  fill="url(#gAorta)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5">
+                                <title>Aorta</title>
+                            </path>
+                            <!-- Branches off the aortic arch -->
+                            <g stroke="#e8584f" stroke-width="12" stroke-linecap="round" fill="none" pointer-events="none">
+                                <path d="M240,104 L240,64"/>
+                                <path d="M264,96 L264,58"/>
+                                <path d="M290,98 L294,66"/>
+                            </g>
 
-                        <!-- Left Atrium -->
-                        <path class="heart-part" id="left-atrium"
-                              d="M60,50 L80,40 L100,50 L100,80 L80,90 L60,80 Z"
-                              fill="#e84118" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                            <!-- Pulmonary artery: branch to the right lung, trunk, and branch to the left lung -->
+                            <path d="M214,176 C180,160 142,162 116,180" fill="none" stroke="url(#gVein)" stroke-width="22" stroke-linecap="round" pointer-events="none"/>
+                            <path d="M192,272 C186,222 196,186 224,172" fill="none" stroke="url(#gVein)" stroke-width="28" stroke-linecap="round" pointer-events="none"/>
+                            <path d="M224,172 C252,162 276,170 290,186" fill="none" stroke="url(#gVein)" stroke-width="22" stroke-linecap="round" pointer-events="none"/>
 
-                        <!-- Left Ventricle -->
-                        <path class="heart-part" id="left-ventricle"
-                              d="M60,80 L80,90 L100,80 L110,120 L90,130 L70,120 Z"
-                              fill="#d63031" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                            <!-- Left atrium (appendage visible at upper right) -->
+                            <path class="heart-part" id="left-atrium"
+                                  d="M258,238 C262,205 300,190 330,208 C352,222 348,252 326,262 C304,272 280,266 258,238 Z"
+                                  fill="url(#gLA)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5">
+                                <title>Left Atrium</title>
+                            </path>
 
-                        <!-- Aorta -->
-                        <path class="heart-part" id="aorta"
-                              d="M70,40 L80,30 L90,30 L100,40 L90,50 L80,50 Z"
-                              fill="#fab1a0" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                            <!-- Left ventricle -->
+                            <path class="heart-part" id="left-ventricle"
+                                  d="M190,250 C215,232 262,240 292,262 C340,296 346,365 312,405 C292,425 262,436 232,432 C215,385 200,320 190,250 Z"
+                                  fill="url(#gLV)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5">
+                                <title>Left Ventricle</title>
+                            </path>
+
+                            <!-- Right ventricle -->
+                            <path class="heart-part" id="right-ventricle"
+                                  d="M190,250 C170,247 140,262 126,292 C108,332 150,392 205,424 C215,430 224,433 232,432 C215,385 200,320 190,250 Z"
+                                  fill="url(#gRV)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5">
+                                <title>Right Ventricle</title>
+                            </path>
+
+                            <!-- Vena cava (superior and inferior) -->
+                            <path d="M128,210 C128,170 126,130 126,90" fill="none" stroke="url(#gVein)" stroke-width="26" stroke-linecap="round" pointer-events="none"/>
+                            <path d="M112,316 L108,394" fill="none" stroke="url(#gVein)" stroke-width="24" stroke-linecap="round" pointer-events="none"/>
+
+                            <!-- Right atrium -->
+                            <path class="heart-part" id="right-atrium"
+                                  d="M182,215 C155,192 108,192 88,228 C70,262 78,305 112,322 C140,334 172,322 188,302 C198,280 196,240 182,215 Z"
+                                  fill="url(#gRA)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5">
+                                <title>Right Atrium</title>
+                            </path>
+
+                            <!-- Coronary vessels and soft highlights (decoration only) -->
+                            <g pointer-events="none" fill="none" stroke-linecap="round">
+                                <path d="M190,250 C200,320 215,385 232,432" stroke="#ffd98a" stroke-opacity="0.6" stroke-width="3"/>
+                                <path d="M206,300 C240,306 280,320 306,350" stroke="#ffd98a" stroke-opacity="0.4" stroke-width="2"/>
+                                <path d="M196,330 C170,338 146,330 130,312" stroke="#ffd98a" stroke-opacity="0.4" stroke-width="2"/>
+                                <path d="M262,270 C292,290 316,330 312,372" stroke="#ffd98a" stroke-opacity="0.3" stroke-width="2"/>
+                            </g>
+                            <ellipse cx="275" cy="320" rx="38" ry="64" transform="rotate(-18 275 320)" fill="url(#gShine)" pointer-events="none"/>
+                            <ellipse cx="150" cy="260" rx="28" ry="40" transform="rotate(-20 150 260)" fill="url(#gShine)" pointer-events="none"/>
+                        </g>
+
+                        <!-- Labels -->
+                        <g pointer-events="none" font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle" filter="url(#labelShadow)">
+                            <text x="136" y="262">Right</text>
+                            <text x="136" y="278">Atrium</text>
+                            <text x="172" y="346">Right</text>
+                            <text x="172" y="362">Ventricle</text>
+                            <text x="272" y="372">Left</text>
+                            <text x="272" y="388">Ventricle</text>
+                            <text x="304" y="235">Left</text>
+                            <text x="304" y="251">Atrium</text>
+                            <text x="296" y="120">Aorta</text>
+                            <text x="126" y="76" font-size="11" font-style="italic" font-weight="500">Vena Cava</text>
+                        </g>
                     </svg>
                 </div>
 

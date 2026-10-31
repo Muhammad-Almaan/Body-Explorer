@@ -176,6 +176,8 @@ body {
 .brain-part {
     cursor: pointer;
     transition: all 0.3s;
+    transform-box: fill-box;
+    transform-origin: center;
 }
 
 .heart-part:hover,
@@ -527,5 +529,26 @@ body {
     .flow-step {
         font-size: 16px;
         padding: 12px 20px;
+    }
+}
+
+/* Heart: gentle heartbeat on the whole diagram */
+.heart-beat {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: heartbeat 1.4s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.025); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.018); }
+    70% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .heart-beat {
+        animation: none;
     }
 }
